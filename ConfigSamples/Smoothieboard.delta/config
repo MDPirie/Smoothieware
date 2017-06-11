@@ -22,12 +22,12 @@ gamma_steps_per_mm                           100              # Steps per mm for
 # Delta configuration
 # See http://smoothieware.org/delta
 arm_solution                                 linear_delta     # Selects the linear delta arm solution
-arm_length                                   250.0            # This is the length of an arm from hinge to hinge
+arm_length                                   440.2            # This is the length of an arm from hinge to hinge
 arm_radius                                   124.0            # This is the horizontal distance from hinge to hinge when the effector is centered
 
 # Planner module configuration : Look-ahead and acceleration configuration
 # See http://smoothieware.org/motion-control
-acceleration                                 3000             # Acceleration in mm/second/second.
+acceleration                                 2000             # Acceleration in mm/second/second.
 #z_acceleration                              500              # Acceleration for Z only moves in mm/s^2, 0 uses acceleration which is the default. DO NOT SET ON A DELTA
 junction_deviation                           0.05             # See http://smoothieware.org/motion-control#junction-deviation
 #z_junction_deviation                        0.0              # For Z only moves, -1 uses junction_deviation, zero disables junction_deviation on z moves DO NOT SET ON A DELTA
@@ -61,7 +61,7 @@ gamma_max_rate                               30000.0          # Maximum rate in 
 ## Extruder module configuration
 # See http://smoothieware.org/extruder
 extruder.hotend.enable                          true          # Whether to activate the extruder module at all. All configuration is ignored if false
-extruder.hotend.steps_per_mm                    140           # Steps per mm for extruder stepper
+extruder.hotend.steps_per_mm                    440           # Steps per mm for extruder stepper
 extruder.hotend.default_feed_rate               600           # Default rate ( mm/minute ) for moves where only the extruder moves
 extruder.hotend.acceleration                    500           # Acceleration for the stepper motor mm/sec²
 extruder.hotend.max_speed                       50            # Maximum speed in mm/s
@@ -71,8 +71,8 @@ extruder.hotend.dir_pin                         0.22          # Pin for extruder
 extruder.hotend.en_pin                          0.21          # Pin for extruder enable signal
 
 # Extruder offset
-#extruder.hotend.x_offset                        0            # X offset from origin in mm
-#extruder.hotend.y_offset                        0            # Y offset from origin in mm
+extruder.hotend.x_offset                        -5.334       # X offset from origin in mm
+extruder.hotend.y_offset                        -13.208      # Y offset from origin in mm
 #extruder.hotend.z_offset                        0            # Z offset from origin in mm
 
 # Firmware retract settings when using G10/G11, these are the defaults if not defined, must be defined for each extruder if not using the defaults
@@ -123,12 +123,12 @@ laser_module_pwm_pin                          2.5             # This pin will be
 temperature_control.hotend.enable            true             # Whether to activate this ( "hotend" ) module at all.
 temperature_control.hotend.thermistor_pin    0.23             # Pin for the thermistor to read
 temperature_control.hotend.heater_pin        2.7              # Pin that controls the heater, set to nc if a readonly thermistor is being defined
-temperature_control.hotend.thermistor        EPCOS100K        # See http://smoothieware.org/temperaturecontrol#toc5
+temperature_control.hotend.thermistor        pt100_e3d        # See http://smoothieware.org/temperaturecontrol#toc5
 #temperature_control.hotend.beta             4066             # Or set the beta value
 temperature_control.hotend.set_m_code        104              # M-code to set the temperature for this module
 temperature_control.hotend.set_and_wait_m_code 109            # M-code to set-and-wait for this module
 temperature_control.hotend.designator        T                # Designator letter for this module
-#temperature_control.hotend.max_temp         300              # Set maximum temperature - Will prevent heating above 300 by default
+temperature_control.hotend.max_temp         300              # Set maximum temperature - Will prevent heating above 300 by default
 #temperature_control.hotend.min_temp         0                # Set minimum temperature - Will prevent heating below if set
 
 # Safety control is enabled by default and can be overidden here, the values show the defaults
@@ -225,11 +225,11 @@ beta_max_travel                              1000             # Max travel in mm
 gamma_max_travel                             1000             # Max travel in mm for gamma/Z axis when homing
 
 # Endstops home at their fast feedrate first, then once the endstop is found they home again at their slow feedrate for accuracy
-alpha_fast_homing_rate_mm_s                  200              # Alpha tower fast homing feedrate in mm/second
+alpha_fast_homing_rate_mm_s                  100              # Alpha tower fast homing feedrate in mm/second
 alpha_slow_homing_rate_mm_s                  20               # Alpha tower slow homing feedrate in mm/second
-beta_fast_homing_rate_mm_s                   200              # Beta  tower fast homing feedrate in mm/second
+beta_fast_homing_rate_mm_s                   100              # Beta  tower fast homing feedrate in mm/second
 beta_slow_homing_rate_mm_s                   20               # Beta  tower slow homing feedrate in mm/second
-gamma_fast_homing_rate_mm_s                  200              # Gamma tower fast homing feedrate in mm/second
+gamma_fast_homing_rate_mm_s                  100              # Gamma tower fast homing feedrate in mm/second
 gamma_slow_homing_rate_mm_s                  20               # Gamma tower slow homing feedrate in mm/second
 
 alpha_homing_retract_mm                      5                # Distance to retract from the endstop after it is hit for alpha/X
@@ -277,19 +277,19 @@ zprobe.probe_height                          5               # How much above be
 ## Panel
 # See http://smoothieware.org/panel
 # Please find your panel on the wiki and copy/paste the right configuration here
-panel.enable                                 false             # Set to true to enable the panel code
+panel.enable                                 true             # Set to true to enable the panel code
 
 # Example for reprap discount GLCD
 # on glcd EXP1 is to left and EXP2 is to right, pin 1 is bottom left, pin 2 is top left etc.
 # +5v is EXP1 pin 10, Gnd is EXP1 pin 9
-#panel.lcd                                   reprap_discount_glcd     #
-#panel.spi_channel                           0                 # SPI channel to use  ; GLCD EXP1 Pins 3,5 (MOSI, SCLK)
-#panel.spi_cs_pin                            0.16              # SPI chip select     ; GLCD EXP1 Pin 4
-#panel.encoder_a_pin                         3.25!^            # Encoder pin         ; GLCD EXP2 Pin 3
-#panel.encoder_b_pin                         3.26!^            # Encoder pin         ; GLCD EXP2 Pin 5
-#panel.click_button_pin                      1.30!^            # Click button        ; GLCD EXP1 Pin 2
-#panel.buzz_pin                              1.31              # Pin for buzzer      ; GLCD EXP1 Pin 1
-#panel.back_button_pin                       2.11!^            # Back button         ; GLCD EXP2 Pin 8
+panel.lcd                                   reprap_discount_glcd     #
+panel.spi_channel                           0                 # SPI channel to use  ; GLCD EXP1 Pins 3,5 (MOSI, SCLK)
+panel.spi_cs_pin                            0.16              # SPI chip select     ; GLCD EXP1 Pin 4
+panel.encoder_a_pin                         3.25!^            # Encoder pin         ; GLCD EXP2 Pin 3
+panel.encoder_b_pin                         3.26!^            # Encoder pin         ; GLCD EXP2 Pin 5
+panel.click_button_pin                      1.30!^            # Click button        ; GLCD EXP1 Pin 2
+panel.buzz_pin                              1.31              # Pin for buzzer      ; GLCD EXP1 Pin 1
+panel.back_button_pin                       2.11!^            # Back button         ; GLCD EXP2 Pin 8
 
 panel.menu_offset                            0                 # Some panels will need 1 here
 
